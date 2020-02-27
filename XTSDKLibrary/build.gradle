@@ -1,0 +1,122 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.github.dcendents.android-maven'
+group='com.github.linpengling'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    lintOptions {
+        abortOnError false
+    }
+
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 29
+        multiDexEnabled true  // 重复包使用
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.XtSdkInterface.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+
+        ndk {
+            abiFilters 'armeabi-v7a'
+        }
+    }
+//    sourceSets {
+//        main {
+//            jniLibs.srcDir 'libs'
+//        }
+//    }
+    repositories {
+        flatDir {
+            dirs 'libs'   // aar目录
+        }
+    }
+
+    buildTypes {
+        release {
+            //混淆
+            minifyEnabled false
+            //对齐
+            zipAlignEnabled true
+            //移除无用的resource 文件
+//            shrinkResources true
+            //加载默认混淆配置文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            debuggable true
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            versionNameSuffix "-debug"
+            zipAlignEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}
+
+dependencies {
+//    api fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+//    implementation project(path: ':httplibrary')
+//    implementation project(path: ':linphonelibrary')
+//    api project(path: ':jkplayerlibrary')
+    testImplementation 'junit:junit:4.12'
+
+
+//    implementation(name:"GSYVideoPlayer-1.6.5", ext:"aar")
+//    implementation 'com.shuyu:gsyVideoPlayer-java:1.6.5'
+//    implementation 'com.shuyu:gsyVideoPlayer-armv7a:1.6.5'
+//    implementation 'com.shuyu:GSYVideoPlayer-exo2:1.6.5'
+//    api 'tv.danmaku.ijk.media:ijkplayer-java:0.7.9'
+//    api 'tv.danmaku.ijk.media:ijkplayer-exo:0.7.9'
+//    api 'com.danikula:videocache:2.6.4'
+//    api files('libs/GSYVideoPlayer-1.6.5.jar')
+
+//    api 'com.shuyu:GSYVideoPlayer:1.6.5'
+
+    api 'com.orhanobut:logger:2.2.0'//日志系统
+    api "org.fusesource.mqtt-client:mqtt-client:1.15"
+
+
+    api 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    annotationProcessor 'androidx.lifecycle:lifecycle-compiler:2.0.0'
+
+//    compileOnly files('libs/fastjson-1.2.2.jar')
+//    compileOnly files('libs/liblinphone.jar')
+//    compileOnly files('libs/logging-interceptor-3.10.0.jar')
+//    compileOnly files('libs/okhttputils-2.6.2.jar')
+//    compileOnly files('libs/okhttp-3.12.0.jar')
+//    compileOnly files('libs/okio-1.15.0.jar')
+//    compileOnly files('libs/retrofit-2.5.0.jar')
+//    compileOnly files('libs/adapter-rxjava2-2.2.0.jar')
+//    compileOnly files('libs/converter-gson-2.3.0.jar')
+//    compileOnly files('libs/rxandroid-2.0.2.jar')
+//    compileOnly files('libs/rxjava-2.1.9.jar')
+//        compileOnly files('libs/mqtt-client-1.15.jar')
+//    compileOnly files('libs/hawtbuf-1.11.jar')
+//    compileOnly files('libs/hawtdispatch-1.22.jar')
+//    compileOnly files('libs/logger-2.2.0.jar')
+
+
+
+    api 'com.zhy:okhttputils:2.6.2'//okhttp封装库
+    api 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+//     ***retrofit2 start***
+    api 'com.squareup.retrofit2:retrofit:2.5.0'
+    api 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
+    api 'com.squareup.retrofit2:converter-gson:2.3.0'
+//     ***retrofit2 end***
+    api 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    api 'io.reactivex.rxjava2:rxjava:2.1.9'
+}
